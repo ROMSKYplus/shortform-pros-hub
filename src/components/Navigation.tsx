@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Play } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, X, Play, ChevronDown, Briefcase, BookOpen, Download, MessageCircle, Calendar } from "lucide-react";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,18 +17,37 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#", id: "home" },
     { label: "Services", href: "#services", id: "services" },
     { label: "Portfolio", href: "#portfolio", id: "portfolio" },
-    { label: "About", href: "#about", id: "about" },
-    { label: "Contact", href: "#contact", id: "contact" }
+    { label: "About", href: "#about", id: "about" }
+  ];
+
+  const resourceItems = [
+    { label: "Blog & Case Studies", id: "blog", icon: BookOpen },
+    { label: "Download Center", id: "downloads", icon: Download },
+    { label: "FAQ", id: "faq", icon: MessageCircle },
+    { label: "Process Timeline", id: "process", icon: Briefcase }
   ];
 
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      const element = document.getElementById(sectionId);
+      // Map section IDs to actual element IDs  
+      const sectionMap: { [key: string]: string } = {
+        services: "services",
+        portfolio: "portfolio", 
+        about: "about",
+        blog: "blog-case-studies",
+        downloads: "download-center",
+        faq: "faq",
+        process: "process-timeline",
+        contact: "contact",
+        booking: "booking-calendar"
+      };
+      
+      const elementId = sectionMap[sectionId] || sectionId;
+      const element = document.getElementById(elementId);
       element?.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
@@ -63,19 +83,47 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
+            
+            {/* Resources Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors duration-200">
+                  Resources
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-card border-border shadow-xl min-w-[220px]">
+                {resourceItems.map((item) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <DropdownMenuItem
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-primary/10 focus:bg-primary/10"
+                    >
+                      <IconComponent className="w-4 h-4 text-primary" />
+                      <span>{item.label}</span>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
             <Button 
               variant="outline" 
-              className="border-primary/30 hover:border-primary"
-              onClick={() => scrollToSection("portfolio")}
+              size="sm"
+              className="border-primary/30 hover:border-primary text-sm"
+              onClick={() => scrollToSection("booking")}
             >
-              View Work
+              <Calendar className="w-4 h-4 mr-2" />
+              Book Call
             </Button>
             <Button 
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
+              size="sm"
+              className="btn-hero text-sm"
               onClick={() => scrollToSection("contact")}
             >
               Start Project
@@ -94,7 +142,8 @@ const Navigation = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-md border-b border-border shadow-xl">
-            <div className="px-4 py-6 space-y-4">
+            <div className="px-4 py-6 space-y-1">
+              {/* Main Navigation */}
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -104,16 +153,37 @@ const Navigation = () => {
                   {item.label}
                 </button>
               ))}
+              
+              {/* Resources Section */}
+              <div className="pt-2">
+                <div className="px-4 py-2 text-sm font-medium text-muted-foreground">Resources</div>
+                {resourceItems.map((item) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="flex items-center gap-3 w-full text-left py-3 px-4 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-200"
+                    >
+                      <IconComponent className="w-4 h-4" />
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </div>
+              
+              {/* CTA Buttons */}
               <div className="pt-4 space-y-3">
                 <Button 
                   variant="outline" 
                   className="w-full border-primary/30 hover:border-primary"
-                  onClick={() => scrollToSection("portfolio")}
+                  onClick={() => scrollToSection("booking")}
                 >
-                  View Work
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Book Free Call
                 </Button>
                 <Button 
-                  className="w-full bg-gradient-to-r from-primary to-accent"
+                  className="w-full btn-hero"
                   onClick={() => scrollToSection("contact")}
                 >
                   Start Project

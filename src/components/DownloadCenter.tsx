@@ -143,7 +143,7 @@ const DownloadCenter = () => {
   };
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-background via-secondary/5 to-background">
+    <section id="download-center" className="py-24 px-4 bg-gradient-to-br from-background via-secondary/5 to-background">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

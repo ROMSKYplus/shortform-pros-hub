@@ -82,7 +82,7 @@ const BookingCalendar = () => {
   };
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-br from-background via-secondary/5 to-background">
+    <section id="booking-calendar" className="py-24 px-4 bg-gradient-to-br from-background via-secondary/5 to-background">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
