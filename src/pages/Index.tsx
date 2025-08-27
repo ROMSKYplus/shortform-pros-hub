@@ -12,6 +12,8 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChatWidget";
 import BookingCalendar from "@/components/BookingCalendar";
+import BlogCaseStudies from "@/components/BlogCaseStudies";
+import DownloadCenter from "@/components/DownloadCenter";
 
 const Index = () => {
   return (
@@ -26,6 +28,8 @@ const Index = () => {
         <ProcessTimeline />
         <PricingCalculator />
         <BookingCalendar />
+        <BlogCaseStudies />
+        <DownloadCenter />
         <FAQ />
         <Testimonials />
         <Contact />
