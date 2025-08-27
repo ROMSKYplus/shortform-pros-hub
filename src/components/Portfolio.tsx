@@ -1,4 +1,5 @@
 import { useState } from "react";
+import VideoModal from "@/components/VideoModal";
 import { Button } from "@/components/ui/button";
 import { Play, ExternalLink, Filter } from "lucide-react";
 import portfolio1 from "@/assets/portfolio-1.jpg";
@@ -10,6 +11,7 @@ import portfolio6 from "@/assets/portfolio-6.jpg";
 
 const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [selectedVideo, setSelectedVideo] = useState<number | null>(null);
 
   const projects = [
     {
@@ -19,7 +21,11 @@ const Portfolio = () => {
       service: "Full Production",
       image: portfolio1,
       description: "Created a series of engaging TikTok videos that generated 2M+ views and 150K engagements for a lifestyle brand.",
-      metrics: "2M+ Views • 150K Engagements • 300% ROI"
+      metrics: "2M+ Views • 150K Engagements • 300% ROI",
+      duration: "0:45",
+      platform: "TikTok",
+      views: "2.1M",
+      engagement: "7.2%"
     },
     {
       id: 2,
@@ -28,7 +34,11 @@ const Portfolio = () => {
       service: "Video Editing",
       image: portfolio2,
       description: "Transformed product demos into engaging Reels format, resulting in 40% increase in product inquiries.",
-      metrics: "500K+ Views • 40% Lead Increase • 25K Saves"
+      metrics: "500K+ Views • 40% Lead Increase • 25K Saves",
+      duration: "0:30",
+      platform: "Instagram Reels", 
+      views: "578K",
+      engagement: "9.4%"
     },
     {
       id: 3,
@@ -37,7 +47,11 @@ const Portfolio = () => {
       service: "Scriptwriting + Editing",
       image: portfolio3,
       description: "Educational content series that simplified complex topics, achieving 95% completion rate and 50K subscribers.",
-      metrics: "1M+ Views • 95% Completion • 50K New Subs"
+      metrics: "1M+ Views • 95% Completion • 50K New Subs",
+      duration: "0:58",
+      platform: "YouTube Shorts",
+      views: "1.2M", 
+      engagement: "12.1%"
     },
     {
       id: 4,
@@ -46,7 +60,11 @@ const Portfolio = () => {
       service: "Full Production",
       image: portfolio4,
       description: "Complete campaign development from concept to execution for B2B software company's product launch.",
-      metrics: "800K+ Views • 200% CTR Increase • 75 MQLs"
+      metrics: "800K+ Views • 200% CTR Increase • 75 MQLs",
+      duration: "0:35",
+      platform: "Instagram Reels",
+      views: "825K",
+      engagement: "6.8%"
     },
     {
       id: 5,
@@ -55,7 +73,11 @@ const Portfolio = () => {
       service: "Video Editing",
       image: portfolio5,
       description: "High-energy entertainment content with motion graphics and sound design that went viral across multiple platforms.",
-      metrics: "3M+ Views • 500K Shares • Top 1% Content"
+      metrics: "3M+ Views • 500K Shares • Top 1% Content",
+      duration: "0:42",
+      platform: "TikTok",
+      views: "3.2M",
+      engagement: "11.5%"
     },
     {
       id: 6,
@@ -64,7 +86,11 @@ const Portfolio = () => {
       service: "Full Production",
       image: portfolio6,
       description: "Motivational fitness content with dynamic editing and inspiring messaging that built a community of 100K+ followers.",
-      metrics: "1.5M+ Views • 100K Followers • 85% Engagement"
+      metrics: "1.5M+ Views • 100K Followers • 85% Engagement",
+      duration: "0:50",
+      platform: "YouTube Shorts",
+      views: "1.8M",
+      engagement: "8.9%"
     }
   ];
 
@@ -116,7 +142,11 @@ const Portfolio = () => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="portfolio-item group">
+            <div 
+              key={project.id} 
+              className="portfolio-item group"
+              onClick={() => setSelectedVideo(project.id)}
+            >
               {/* Project Image */}
               <div className="aspect-[9/16] relative overflow-hidden">
                 <img
@@ -148,19 +178,14 @@ const Portfolio = () => {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-6">
-            Ready to see similar results for your brand?
-          </p>
-          <Button 
-            className="btn-hero"
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          >
-            <ExternalLink className="w-5 h-5 mr-2" />
-            Start Your Project
-          </Button>
-        </div>
+        {/* Video Modal */}
+        {selectedVideo && (
+          <VideoModal
+            isOpen={selectedVideo !== null}
+            onClose={() => setSelectedVideo(null)}
+            video={projects.find(p => p.id === selectedVideo)!}
+          />
+        )}
       </div>
     </section>
   );
