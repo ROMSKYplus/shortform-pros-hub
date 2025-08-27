@@ -98,7 +98,7 @@
   
   /* Service card styling */
   .service-card {
-    @apply relative p-6 bg-card border border-border rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-[var(--shadow-card)] hover:-translate-y-2 group overflow-hidden;
+    @apply relative p-6 bg-card border border-border rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-[var(--shadow-card)] hover:-translate-y-2 overflow-hidden;
   }
   
   .service-card::before {
@@ -112,7 +112,7 @@
   
   /* Portfolio item styling */
   .portfolio-item {
-    @apply relative rounded-xl overflow-hidden group cursor-pointer bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-[var(--shadow-hover)] hover:scale-[1.02];
+    @apply relative rounded-xl overflow-hidden cursor-pointer bg-card border border-border transition-all duration-300 hover:border-primary/50 hover:shadow-[var(--shadow-hover)] hover:scale-[1.02];
   }
   
   .portfolio-overlay {
