@@ -10,6 +10,8 @@ import ResultsDashboard from "@/components/ResultsDashboard";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import LiveChatWidget from "@/components/LiveChatWidget";
+import BookingCalendar from "@/components/BookingCalendar";
 
 const Index = () => {
   return (
@@ -23,11 +25,13 @@ const Index = () => {
         <About />
         <ProcessTimeline />
         <PricingCalculator />
+        <BookingCalendar />
         <FAQ />
         <Testimonials />
         <Contact />
       </main>
       <Footer />
+      <LiveChatWidget />
     </div>
   );
 };
